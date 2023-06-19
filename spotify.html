@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Playlist</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Optional: Include Bootstrap JavaScript and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    // Function to update the clock
+    function updateClock() {
+      var currentTime = new Date();
+      var hours = currentTime.getHours();
+      var minutes = currentTime.getMinutes();
+      var seconds = currentTime.getSeconds();
+      
+      // Pad single digits with leading zeros
+      hours = (hours < 10 ? "0" : "") + hours;
+      minutes = (minutes < 10 ? "0" : "") + minutes;
+      seconds = (seconds < 10 ? "0" : "") + seconds;
+      
+      // Format the time as HH:MM:SS
+      var timeString = hours + ":" + minutes + ":" + seconds;
+      
+      // Update the clock element
+      document.getElementById("clock").innerHTML = timeString;
+    }
+    
+    // Function to update the date
+    function updateDate() {
+      var currentDate = new Date();
+      var options = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
+      var dateString = currentDate.toLocaleDateString('en-US', options);
+      
+      // Update the date element
+      document.getElementById("date").innerHTML = dateString;
+    }
+    
+    // Function to get the user's current location
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showLocation);
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
+    
+    // Function to display the user's current city
+    function showLocation(position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+      
+      // Use reverse geocoding to get the city from the coordinates
+      var geocoder = new google.maps.Geocoder();
+      var latlng = new google.maps.LatLng(latitude, longitude);
+      
+      geocoder.geocode({ 'latLng': latlng }, function(results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+          if (results[0]) {
+            var city = results[0].address_components[3].long_name; // Extract the city name
+            
+            // Update the city element
+            document.getElementById("city").innerHTML = "City: " + city;
+          }
+        }
+      });
+    }
+    
+    // Call the functions on page load
+    window.onload = function() {
+      updateClock(); // Update the clock immediately
+      setInterval(updateClock, 1000); // Update the clock every second
+      
+      updateDate(); // Update the date immediately
+      setInterval(updateDate, 60000); // Update the date every minute
+      
+      // getLocation(); // Get the user's current location
+    };
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
+  
+  <style>
+    body {
+      background-image: url('../flirt/bg.jpg');
+
+    }
+    .clock {
+      color: #8b475d;
+      font-weight: bold;
+      font-size: 8em;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .date {
+      color: #8b475d;
+      font-weight: bold;
+      font-size: 3em;
+      text-align: center;
+      margin-top: -30px;
+      margin-bottom: 30px;
+    }
+    .playlist-container {
+      width: 300px;
+      height: 380px;
+    }
+    /* .carousel-inner .carousel-item {
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      height: 300px; 
+    } 
+
+    .carousel-inner .carousel-item img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    } */
+  </style>
+</head>
+<body style="background-color:peachpuff;">
+  <div class="clock">
+    <span id="clock"></span>
+  </div>
+  
+  <div class="date">
+    <span id="date"></span>
+  </div>
+
+    <div class="container col-md-12">
+        <div class="row">
+            <div class="col-md-3" >
+              <div class="container">
+                <div class="playlist-container">
+                  <iframe src="https://open.spotify.com/embed/playlist/15KiTsz7ia0U897j38GjCD?si=EYEOJB5sRFeiNg12E65sMQ " width="300" height="380"  frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>          
+                </div>
+              </div>
+            </div>
+           
+               
+            <div class="col-md-9">
+              <div class="card" >
+                <div class="card-header" style="background-color: #cdaf95;">
+                  <H3 style="color: #8b475d;">Hallo Dichen!!</H3>
+                </div>
+                <div class="card-body" style="background-color: #eecbad;">
+                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <div class="card justify-content" style="width: 18em;">
+                          <img src="https://www.rd.com/wp-content/uploads/2023/04/Roses-Are-Red-Poems-FT-GettyImages-913362778.jpg?resize=700,700"  alt="Image 1">
+                        </div>
+                      </div>
+                      <div class="carousel-item">
+                        <div class="card" style="width: 18em;">
+                          <img src="https://www.rd.com/wp-content/uploads/2023/04/Roses-Are-Red-Poems-2-GettyImages-913362778.jpg?resize=700,700"  alt="Image 2">
+                        </div>
+                      </div>
+                      <div class="carousel-item">
+                        <div class="card" style="width: 18em;">
+                          <img src="https://www.rd.com/wp-content/uploads/2023/04/Roses-Are-Red-Poems-5-GettyImages-913362778-v2.jpg?resize=700,700" alt="Image 3">
+                        </div>
+                      </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </div>
+                </div>
+              </div>             
+            </div>   
+        </div>    
+      </div>  
+</body>
+</html>
